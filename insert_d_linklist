@@ -1,0 +1,188 @@
+#include <bits/stdc++.h>
+#define ll long long int
+using namespace std;
+//ربنا أكرم من أي حد
+//Jerry&Tom
+//O_SOFTWARE
+//هو انا هحل؟انتو بتوعي وانا بتعاكوو يتهدوني يهدكو
+void omar()
+{
+ios::sync_with_stdio(0);
+cin.tie(0);
+
+}
+struct node// نود للدابل لينكد ليست والي هتخليني اجيب ادريس العنصر الي بعدي والي قبلي
+{
+    int data;
+    struct node*next;//  &prev| data | &next
+    struct node*prev;
+}*head,*tail,*temp,*prevnode,*nextnode,*current;
+class Double_linked_list
+{
+public:
+    linked_list()
+    {// | head|--->&prev| data | &next
+        head=NULL;//بخلي الهيد يبقي بصفر فالبدايه
+    }
+    void createnode(int value);//بعمل نود عادي جدا
+    void insertnode(int value);// هنا الفانكشن دي هتخليني اضيف عناصر فالليندك ليست
+    void insert_begin(int value);
+    void insert_end(int value);
+    void insert_pos(int pos,int value);
+    void display();
+
+
+};
+
+void Double_linked_list::createnode(int value)
+{
+    struct node*newnode;
+    newnode=new node();
+    newnode->data=value;
+    newnode->next=NULL;
+     newnode->prev=NULL;// NULL|value|NULL
+
+}
+//****************************************************
+void Double_linked_list::insertnode(int value)
+{
+     struct node*newnode;//بعمل نسخه من الاستراكت واعمل نود جديده ودي الي هضيف فيها العنصر
+     newnode = new node();
+
+       newnode->data = value;
+        newnode->next=NULL;
+        newnode->prev=NULL;
+
+
+    if (head == NULL)// لو هو بصفر يعني اول عنصر هضيفه
+    {
+         head=tail=newnode;// هخلي النود الجديده تشاور عالتيمب ويبقي متغير ال
+         //برضو مشاور عليه ودا الي هحركه بعدينtemp
+    }
+
+  else
+   {
+    tail->next=newnode;// بحرك التيمب علي النود الي بعده وهكذا
+    newnode->prev=tail;
+       tail=newnode;
+
+   }
+}
+
+//****************************************************
+void Double_linked_list::insert_begin(int value)
+{
+    struct node*newnode;
+     newnode = new node();
+       newnode->data = value;
+        newnode->next=NULL;
+        newnode->prev=NULL;
+        if(head==NULL)
+        {
+            cout<<"ALLOCATE MEMORY IS INVALID"<<endl;
+        }
+        else
+        {
+            head->prev=newnode;
+            newnode->next=head;
+            head=newnode;
+        }
+
+}
+//****************************************************
+void Double_linked_list::insert_end(int value)
+{
+    struct node*newnode;
+     newnode = new node();
+       newnode->data = value;
+        newnode->next=NULL;
+        newnode->prev=NULL;
+
+        if(head==NULL)
+        {
+            cout<<"ALLOCATE MEMORY IS INVALID"<<endl;
+        }
+
+        else
+        {
+
+            tail=head;
+             while(tail->next!=NULL)
+          { // بوديه لاخر عنصر
+              tail = tail->next;
+          }
+          tail->next=newnode;
+          newnode->prev=tail;
+          newnode->next=NULL;
+        }
+}
+//****************************************************
+void Double_linked_list::insert_pos(int pos,int value)
+{
+    int i=1;
+    struct node*newnode;
+     newnode = new node();
+      newnode->data = value;
+
+      if(pos< 1)
+      {
+        cout<<"position should be >= 1"<<endl;
+      }
+      else if (pos== 1)
+      {
+       insert_begin(value);
+      }
+            else
+        {
+        temp = head;
+        while(i<pos-1)
+        {
+
+            temp = temp->next;
+        i++;
+        }
+
+newnode->next = temp->next;
+
+
+        temp->next->prev = newnode;
+
+
+        temp->next = newnode;
+
+
+        newnode->prev = temp;
+            }
+ }
+//****************************************************
+void Double_linked_list::display()
+{
+
+tail=head;
+
+ while(tail!=0)
+ {
+     cout<<tail->data<<" ";
+     tail=tail->next;
+ }
+}
+//****************************************************
+int main()
+{
+Double_linked_list ob;
+cout<<"Double_linked_list elements : "<<endl;
+ob.insertnode(1);
+ob.insertnode(2);
+ob.insertnode(3);
+ob.insertnode(4);
+ob.insertnode(5);
+ob.display();
+cout<<endl;
+cout<<"Double_linked_list After Insert : "<<endl;
+ob.insert_begin(0);
+ob.insert_end(6);
+ob.insert_pos(6,20);
+ob.display();
+
+    return 0;
+}
